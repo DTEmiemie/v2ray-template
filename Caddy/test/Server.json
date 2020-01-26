@@ -1,0 +1,46 @@
+{
+  "inbounds": [
+    {
+      "port": 111,
+      "protocol": "vmess",
+      "listen": "127.0.0.1", //Only listen on 127.0.0.1, to prevent machines other than this one from detecting that the 10000 port is open
+      "settings": {
+        "clients": [
+          {
+            "id": "UUID",
+            "level": 1,
+            "alterId": 64
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/yourpath"
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+}
